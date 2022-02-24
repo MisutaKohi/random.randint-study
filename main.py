@@ -23,11 +23,14 @@ Example:
 
 
 def see_instructions(str):
+    """This function will display the instructions for using this script as well as what each piece of user
+     input will be used for."""
 
     pass
 
 
 def run_study():
+    """This function will run the bulk of the mathematical operations for the study."""
     pass
 
 
