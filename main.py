@@ -6,6 +6,9 @@ The program will prompt the user to enter several parameters about the study the
 the results of the study to a CSV file. The intention is that this CSV file will not only be opened as a dataframe in
 Jupyter Notebook for further analysis, but also then exported to an Excel file for data visualization purposes.
 
+The idea here is that the larger the sample size and the more iterations than run, the more random.randint should
+converge on generating each integer [0..9] exactly 10 percent of the time if it is truly random.
+
 The user will be prompted to enter:
 1) the desired sample size
 2) the desired number of iterations
@@ -20,7 +23,7 @@ Example:
     Sample size: 10, Iterations: 2, CSV File: 'study.csv'
 
     Output to study.xlsx:
-    [['Keys',   0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+    [['Keys', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'],
     ['round 1', 2, 3, 3, 2, 0, 0, 0, 0, 0, 0],
     ['round 2', 0, 0, 1, 2, 0, 0, 2, 0, 0, 5]]
     """
@@ -67,9 +70,6 @@ def run_study(sample_size, iterations):
 
     return export_lists
 
-#print(run_study(10, 10))
-
-
 
 def create_export_file(filename):
     '''This function will take a given filename with or without a file extension. It will split the filename at
@@ -112,6 +112,22 @@ def confirm_export(filename):
     return correct
 
 
+def check_pos_int(str):
+    '''This function will take an integer a string and verify that it can be cast to an integer. It will return
+    True where the integer is greater than 0 and False where the integer is less than 0.'''
+
+    try:
+        num = int(str.strip())
+
+        if (num > 0):
+            return True
+        else:
+            return False
+
+    except:
+        return False
+
+
 def export_finding(destination, export_data):
     '''This function takes 2 parameters: an export destination as well as a list of strings to export.'''
 
@@ -121,7 +137,7 @@ def export_finding(destination, export_data):
 
         writer.writerows(export_data)
 
-'''
+
 def main():
 
     while (True):
@@ -132,7 +148,17 @@ def main():
             break
 
     sample_size = input("Please enter desired sample size: ")
+
+
+
+    while (sample_size < 0):
+        sample_size = input("Sample size must be a positive int: ")
+
     num_iterations = input("How many iterations: ")
+    while (num_iterations < 0):
+        num_iterations = input("iterations must be a positive int: ")
+
+
     export_destination = input("Export destination (as CSV file): ")
 
     # cleans given file destination and adds appropriate file extension (CSV)
@@ -144,10 +170,10 @@ def main():
     while (confirm != True):
         export_destination = input("Reenter export destination (as CSV file): ")
         export_file = create_export_file(export_destination)
-        confirm = confirm_export()
+        confirm = confirm_export(export_file)
 
     # creates a list of CSV lists
-    export_data = run_study(sample_size, num_iterations)
+    export_data = run_study(int(sample_size.strip()), int(num_iterations.strip()))
 
     export_finding(export_file, export_data)
 
@@ -155,4 +181,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()'''
+    main()
