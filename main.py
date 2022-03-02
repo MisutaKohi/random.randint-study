@@ -37,19 +37,31 @@ def see_instructions(str):
 
 
 def run_study(sample_size, iterations):
-    """This function will run the bulk of the mathematical operations for the study."""
+    """This function will run the bulk of the mathematical operations for the study. It returns a list of CSV lists,
+    ready for export."""
 
+    # list of CSV strings
     export_lists = [['keys', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']]
 
+    # counter to keep track of which round random values belong to
+    round_number = 0
+
+    # handles executing rounds for given number of iterations
     for num in range(0, iterations):
 
-        study_tally = {0:0, 1:0, 2:0, 3:0, 4:0, 5:0, 6:0, 7:0, 8:0, 9:0}
+        study_tally = {'round':0, 0:0, 1:0, 2:0, 3:0, 4:0, 5:0, 6:0, 7:0, 8:0, 9:0}
 
+        round_number += 1
+
+        # handles random number generations for a particular round/iteration
         for num in range(0, sample_size):
 
             rand_num = random.randint(0,9)
 
             study_tally[rand_num] += 1
+
+        # updates 'round' key with appropriate round number
+        study_tally['round'] = "round " + str(round_number)
 
         export_lists.append(list(study_tally.values()))
 
