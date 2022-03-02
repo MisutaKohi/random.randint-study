@@ -1,9 +1,24 @@
 import unittest
 
+from main import *
 
-class MyTestCase(unittest.TestCase):
-    def test_something(self):
-        self.assertEqual(True, False)  # add assertion here
+class RandIntTest(unittest.TestCase):
+
+    def test_see_instructions(self):
+        pass
+
+    def test_run_study(self):
+
+
+    def test_create_export_file(self):
+        pass
+
+
+    def test_confirm_export(self):
+        pass
+
+    def test_check_pos_int(str):
+        pass
 
 
 if __name__ == '__main__':
