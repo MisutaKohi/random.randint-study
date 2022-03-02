@@ -43,13 +43,23 @@ def create_export_file(filename):
 
     If the filename contains any symbols apart from '-' or '_', they will be removed.'''
 
-    filename_no_extension = filename.split('.')
+    filename_as_list = list(filename)
+
+    symbols_removed = ""
+
+    # cleans given filename of all non-valid chars
+    for char in filename_as_list:
+        if (char.isalnum()):
+            symbols_removed += char
+        if (char in ['-', '_', '.']):
+            symbols_removed += char
+
+    # multiple periods in filename will cause bugs
+    filename_no_extension = symbols_removed.split('.')
 
     filename_as_excel = filename_no_extension[0] + '.xlsx'
 
     return filename_as_excel
-
-
 
 
 def confirm_export():
@@ -61,6 +71,9 @@ def export_finding(destination):
     pass
 
 
+
+
+'''
 def main():
     yes_or_no = ''
 
@@ -95,3 +108,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+'''
