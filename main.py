@@ -149,15 +149,19 @@ def main():
 
     sample_size = input("Please enter desired sample size: ")
 
+    # checks that user input can be cast as int and that it is greater than 0
+    correct_sample_size = check_pos_int(sample_size)
 
-
-    while (sample_size < 0):
+    while (correct_sample_size != True):
         sample_size = input("Sample size must be a positive int: ")
+        correct_sample_size = check_pos_int(sample_size)
 
     num_iterations = input("How many iterations: ")
-    while (num_iterations < 0):
-        num_iterations = input("iterations must be a positive int: ")
+    correct_num_iterations = check_pos_int(num_iterations)
 
+    while (correct_num_iterations != True):
+        num_iterations = input("iterations must be a positive int: ")
+        correct_num_iterations = check_pos_int(num_iterations)
 
     export_destination = input("Export destination (as CSV file): ")
 
