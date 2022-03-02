@@ -17,14 +17,16 @@ what gets exported to the Excel file will essentially be a list of numbers. The 
 and each subsequent row will represent a different 'round' in the study.
 
 Example:
-    Sample size: 10, Iterations: 2, Excel File: 'study.xlsx'
+    Sample size: 10, Iterations: 2, CSV File: 'study.csv'
 
     Output to study.xlsx:
-    ['Keys',    0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-    ['round 1', 2, 3, 3, 2, 0, 0, 0, 0, 0, 0]
-    ['round 2', 0, 0, 1, 2, 0, 0, 2, 0, 0, 5]
+    [['Keys',   0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+    ['round 1', 2, 3, 3, 2, 0, 0, 0, 0, 0, 0],
+    ['round 2', 0, 0, 1, 2, 0, 0, 2, 0, 0, 5]]
     """
+
 import csv
+import random
 
 
 def see_instructions(str):
@@ -36,7 +38,25 @@ def see_instructions(str):
 
 def run_study(sample_size, iterations):
     """This function will run the bulk of the mathematical operations for the study."""
-    pass
+
+    export_lists = [['keys', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']]
+
+    for num in range(0, iterations):
+
+        study_tally = {0:0, 1:0, 2:0, 3:0, 4:0, 5:0, 6:0, 7:0, 8:0, 9:0}
+
+        for num in range(0, sample_size):
+
+            rand_num = random.randint(0,9)
+
+            study_tally[rand_num] += 1
+
+        export_lists.append(list(study_tally.values()))
+
+    return export_lists
+
+#print(run_study(10, 10))
+
 
 
 def create_export_file(filename):
@@ -89,11 +109,7 @@ def export_finding(destination, export_data):
 
         writer.writerows(export_data)
 
-#export_finding('hello.csv', [['one', 'two', 'three', 'four'], [1, 2, 3, 4], [5, 6, 7, 8]])
-
-
-
-
+'''
 def main():
 
     while (True):
@@ -104,11 +120,13 @@ def main():
             break
 
     sample_size = input("Please enter desired sample size: ")
-    repeat = input("How many iterations: ")
+    num_iterations = input("How many iterations: ")
     export_destination = input("Export destination (as CSV file): ")
 
+    # cleans given file destination and adds appropriate file extension (CSV)
     export_file = create_export_file(export_destination)
 
+    # prompts user to reconfirm that the given file destination is correct
     confirm = confirm_export(export_file)
 
     while (confirm != True):
@@ -116,8 +134,8 @@ def main():
         export_file = create_export_file(export_destination)
         confirm = confirm_export()
 
-
-    export_data = [['one', 'two', 'three'], [1, 2, 3, 4], [1, 2, 3, 4]] #run_study(sample_size, repeat)
+    # creates a list of CSV lists
+    export_data = run_study(sample_size, num_iterations)
 
     export_finding(export_file, export_data)
 
@@ -125,4 +143,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    main()'''
