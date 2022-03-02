@@ -62,13 +62,25 @@ def create_export_file(filename):
     return filename_as_excel
 
 
-def confirm_export():
+def confirm_export(filename):
+    '''This function will prompt the user to verify that the given filename is the correct destination to which
+    to export the results of the study. Function returns True/False based upon user input.'''
 
-    return True
+    print("Are you sure that '{}' is correct?".format(filename))
+    correct = input('This will overwrite and erase existing content if file already exists. (y/n) ')
+
+    # return true where first letter of user response is 'y'
+    if (correct[0].lower() == 'y'):
+        return True
+    else:
+        return False
+
+    return correct
 
 
-def export_finding(destination):
+def export_finding(destination, export_data):
     pass
+
 
 
 
