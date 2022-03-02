@@ -3,7 +3,8 @@
 an integer?
 
 The program will prompt the user to enter several parameters about the study they'd like to run, and then export
-the results of the study to an Excel file for further data analysis.
+the results of the study to a CSV file. The intention is that this CSV file will not only be opened as a dataframe in
+Jupyter Notebook for further analysis, but also then exported to an Excel file for data visualization purposes.
 
 The user will be prompted to enter:
 1) the desired sample size
@@ -23,6 +24,7 @@ Example:
     ['round 1', 2, 3, 3, 2, 0, 0, 0, 0, 0, 0]
     ['round 2', 0, 0, 1, 2, 0, 0, 2, 0, 0, 5]
     """
+import csv
 
 
 def see_instructions(str):
@@ -57,7 +59,7 @@ def create_export_file(filename):
     # multiple periods in filename will cause bugs
     filename_no_extension = symbols_removed.split('.')
 
-    filename_as_excel = filename_no_extension[0] + '.xlsx'
+    filename_as_excel = filename_no_extension[0] + '.csv'
 
     return filename_as_excel
 
@@ -79,45 +81,48 @@ def confirm_export(filename):
 
 
 def export_finding(destination, export_data):
-    pass
+    '''This function takes 2 parameters: an export destination as well as a list of strings to export.'''
+
+    with open(destination, 'w') as f_out:
+
+        writer = csv.writer(f_out)
+
+        writer.writerows(export_data)
+
+#export_finding('hello.csv', [['one', 'two', 'three', 'four'], [1, 2, 3, 4], [5, 6, 7, 8]])
 
 
 
 
-
-'''
 def main():
-    yes_or_no = ''
 
     while (True):
         yes_or_no = input('Welcome! Would you like to see the instructions? (y/n) ')
 
-        if (yes_or_no.lower() == 'y' or yes_or_no.lower() == 'n'):
+        if (yes_or_no[0].lower() == 'y' or yes_or_no[0].lower() == 'n'):
             see_instructions(yes_or_no)
             break
 
     sample_size = input("Please enter desired sample size: ")
-    repeat = input("Repeat how many times: ")
-    export_destination = input("Excel file export destination: ")
+    repeat = input("How many iterations: ")
+    export_destination = input("Export destination (as CSV file): ")
 
     export_file = create_export_file(export_destination)
 
-    confirm = confirm_export()
-    export_file = ''
+    confirm = confirm_export(export_file)
 
     while (confirm != True):
-        export_destination = input("Excel file export destination: ")
+        export_destination = input("Reenter export destination (as CSV file): ")
         export_file = create_export_file(export_destination)
         confirm = confirm_export()
 
 
-    run_study(sample_size, repeat)
+    export_data = [['one', 'two', 'three'], [1, 2, 3, 4], [1, 2, 3, 4]] #run_study(sample_size, repeat)
 
-    export_finding(export_file)
+    export_finding(export_file, export_data)
 
     print('Operation successful!')
 
 
 if __name__ == "__main__":
     main()
-'''
