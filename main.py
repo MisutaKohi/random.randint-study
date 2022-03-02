@@ -1,19 +1,22 @@
+
 """This script will represent a study of the random library's randint method. How random does it really generate
 an integer?
 
-Here we'll be using integers 0-9.
+The program will prompt the user to enter several parameters about the study they'd like to run, and then export
+the results of the study to an Excel file for further data analysis.
 
-This script will prompt a user to enter several attributes about the study they would like to execute. First, the
-script will prompt the user for a sample size, that is to say, how many random integers they want generated at a time.
-Next, how many times to repeat the test at that sample size. This will be roughly equal to the number of rows in
-the Excel file (less one for the column headers). Finally, the name of the Excel file where the user would like to
-export the findings of the study.
+The user will be prompted to enter:
+1) the desired sample size
+2) the desired number of iterations
+3) the desired file where the program will export the results
 
-Once the calculations finish, the program will open the designated Excel file and overwrite any pre-existing content.
-The intention is then that the file be opened in a dataframe for further analysis.
+Once the user enters the desired parameters of the study, this script will then generate x number of random numbers,
+equivalent to the sample size. It will then repeat this process based upon the desired number of iterations. Finally,
+what gets exported to the Excel file will essentially be a list of numbers. The first list will be the column headers,
+and each subsequent row will represent a different 'round' in the study.
 
 Example:
-    Sample size: 10, Repeated: 2, Excel File: 'study.xlsx'
+    Sample size: 10, Iterations: 2, Excel File: 'study.xlsx'
 
     Output to study.xlsx:
     ['Keys',    0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -29,17 +32,29 @@ def see_instructions(str):
     pass
 
 
-def run_study():
+def run_study(sample_size, iterations):
     """This function will run the bulk of the mathematical operations for the study."""
     pass
 
 
 def create_export_file(filename):
-    pass
+    '''This function will take a given filename with or without a file extension. It will split the filename at
+    the '.' and replace any given file extension with '.xlsx'.
+
+    If the filename contains any symbols apart from '-' or '_', they will be removed.'''
+
+    filename_no_extension = filename.split('.')
+
+    filename_as_excel = filename_no_extension[0] + '.xlsx'
+
+    return filename_as_excel
+
+
 
 
 def confirm_export():
-    pass
+
+    return True
 
 
 def export_finding(destination):
